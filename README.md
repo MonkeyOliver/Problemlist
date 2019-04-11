@@ -4,6 +4,7 @@
 
 ### Graph
 
+- 带权并查集：[P1196](Problems/luogu/P1196.md)
 - 最小生成树：[P2330](Problems/luogu/P2330.md)
 
 ## LeetCode

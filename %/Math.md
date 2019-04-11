@@ -1,0 +1,80 @@
+# Math
+
+## 快速幂
+
+    LL qPow(LL a, LL b, LL mod) {
+        LL ans = 1, bas = a;
+        while (b) {
+            if (b & 1)ans = ans * bas%mod;
+            bas = bas * bas%mod;
+            b >>= 1;
+        }
+        return ans;
+    }
+
+## 快速乘法
+
+    LL qMul(LL a, LL b, LL mod) {
+        LL ans = 0, bas = a;
+        while (b) {
+            if (b & 1)ans = (ans + bas) % mod;
+            bas = (bas * 2) % mod;
+            b >>= 1;
+        }
+        return ans;
+    }
+
+## 欧几里得GCD
+
+    LL gcd(LL a, LL b) { return b ? gcd(b, a % b) : a; }
+
+## 扩展欧几里得
+
+    //返回gcd(a,b), x和y为ax+by=gcd(a,b)的一组特解
+    LL exgcd(LL a, LL b, LL&x, LL&y) {
+        if (!b) { x = 1; y = 0; return a; }
+        LL d = exgcd(b, a%b, x, y);
+        LL z = x; x = y; y = z - y * (a / b);
+        return d;
+    }
+
+## 欧拉法线性筛**素数**
+
+    int prime[maxn + 10], not_pr[maxn + 10];
+
+    void get_list() {
+        int tot = 0;
+        for (int i = 2; i <= maxn; i++) {
+            if (!not_pr[i]) prime[++tot] = i;
+            for (int j = 1; j <= tot && i*prime[j] <= maxn; j++) {
+                not_pr[i*prime[j]] = 1;//合数标为1，prime[j]是合数i*prime[j]的最小素因子
+                if (i%prime[j] == 0) break;//比一个合数大的质数和该合数的乘积可用一个更大的合数和比其小的质数相乘得到
+            }
+        }
+    }
+
+## 费马小定理
+
+**若p为质数**，$a^p\equiv a(\mod p)$
+
+## 欧拉定理
+
+**若a，n互质**，$a^{\phi(n)}\equiv 1(\mod n)$
+
+**若a，n互质**，对于任意正整数b，有$a^b\equiv a^{b\mod\phi(n)}(\mod n)$
+
+**若a，n不一定互质且$b>\phi(n)$**，有$a^b\equiv a^{b\mod\phi(n)+\phi(n)}(\mod n)$
+
+## 欧拉函数$\phi(n)$（$O\sqrt{n}$）
+
+    LL phi(LL n) {
+        LL ans = n, m = sqrt(n);
+        for (LL i = 2; i <= m; i++) {
+            if (n%i == 0) {
+                ans = ans / i * (i - 1);
+                while (n%i == 0) n /= i;
+            }
+        }
+        if (n > 1) ans = ans / n * (n - 1);
+        return ans;
+    }

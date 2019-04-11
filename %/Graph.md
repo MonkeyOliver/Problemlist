@@ -15,6 +15,25 @@
         head[u] = cnt;
     }
 
+## 并查集
+
+    int fa[maxn];
+
+    void init(int n) {
+        for (int i = 1; i <= n; i++)fa[i] = i;
+    }
+
+    int findr(int x) {
+        if (fa[x] == x)return x;
+        else return fa[x] = findr(fa[x]);
+    }
+
+    void merge(int x, int y) {
+        int xr = findr(x);
+        int yr = findr(y);
+        if (xr != yr)fa[xr] = yr;
+    }
+
 ## 匈牙利（二分图最大匹配）
 
     const int maxn = 110;

@@ -2,6 +2,10 @@
 
 ## Problems
 
+### Math
+
+[cf1140D](Problems/codeforces/1140D.md)
+
 ### Greedy
 
 [cf1153C](Problems/codeforces/1153C.md)

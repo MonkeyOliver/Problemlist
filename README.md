@@ -2,6 +2,10 @@
 
 ## Problems
 
+### Greedy
+
+[cf1153C](Problems/codeforces/1153C.md)
+
 ### Graph
 
 - 并查集：[P1197](Problems/luogu/P1197.md)

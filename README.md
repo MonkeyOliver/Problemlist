@@ -1,5 +1,7 @@
 # Problemlist
 
+更好阅读体验[点击这里](https://monkeyoliver.github.io/Problemlist/)
+
 ## Problems
 
 ### Math

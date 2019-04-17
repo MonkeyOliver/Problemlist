@@ -53,6 +53,61 @@
         return false;
     }
 
+## 分层最短路
+
+    #define make_pair mpr
+    const int maxn = 200000 + 10;
+    using namespace std;
+
+    int n, m, k, s, t;
+    vector<pair<int, int>>G[maxn];
+    int vis[maxn], dis[maxn];
+
+    void addEdge(int u, int v, int c = 0) {
+        G[u].push_back(mpr(v, c));
+    }
+
+    void dijk(int s) {
+        memset(dis, INT_MAX, sizeof(dis));
+        dis[s] = 0;
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>>q;
+        q.push(mpr(0, s));
+        while (!q.empty()) {
+            int u = q.top().second; q.pop();
+            if (!vis[u]) {
+                vis[u] = 1;
+                for (vector<pair<int,int>>::iterator i = G[u].begin(); i != G[u].end(); i++) {
+                    int v = (*i).first, c = (*i).second;
+                    if (dis[v] > dis[u] + c) {
+                        dis[v] = dis[u] + c;
+                        q.push(mpr(dis[v], v));
+                    }
+                }
+
+            }
+        }
+    }
+
+    int main() {
+        scanf("%d%d%d%d%d", &n, &m, &k, &s, &t);
+        int u, v, c;
+        for (int i = 0; i < m; i++) {
+            scanf("%d%d%d", &u, &v, &c);
+            addEdge(u, v, c);
+            addEdge(v, u, c);
+            for (int j = 1; j <= k; j++) {
+                addEdge(u + (j - 1)*n, v + j * n);
+                addEdge(v + (j - 1)*n, u + j * n);
+                addEdge(u + j * n, v + j * n, c);
+                addEdge(v + j * n, u + j * n, c);
+            }
+        }
+        for (int i = 1; i <= k; i++)addEdge(t + (i - 1)*n, t + i * n);
+        dijk(s);
+        printf("%d\n", dis[t + k * n]);
+        return 0;
+    }
+
 ## 最大流dinic
 
     vector<int> G[maxn];

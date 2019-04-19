@@ -14,7 +14,9 @@
 
 ### dp
 
-- 01背包：[P2639](Problems/luogu/P2639.md) [P2430](Problems/luogu/P2430.md) [P2925](Problems/luogu/P2925.md)
+[P2347](Problems/luogu/P2347.md)
+
+- 01背包：[P2639](Problems/luogu/P2639.md) [P2430](Problems/luogu/P2430.md) [P2925](Problems/luogu/P2925.md) [P1507](Problems/luogu/P1507.md)
 - 完全背包：[P2722](Problems/luogu/P2722.md)
 
 ### Graph

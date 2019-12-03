@@ -189,3 +189,35 @@
         }
         return 0;
     }
+
+## 树链剖分
+
+    vector<int>tree[MAXN];
+    int fa[MAXN], hson[MAXN], dep[MAXN], siz[MAXN];
+    int top[MAXN], rnk[MAXN], dfn[MAXN];
+    int cnt = 0;
+
+    //dfs1()记录每个结点的父节点（fa）、深度（dep）、子树大小（siz）、重子节点（hson）
+    void dfs1(int o) {
+        hson[o] = -1, siz[o] = 1;
+        for (auto i : tree[o]) {
+            //跳过已处理过的i节点
+            if (!dep[i]) {
+                dep[i] = dep[o] + 1;//更新i节点的深度
+                fa[i] = o;//更新i节点的father
+                dfs1(i);
+                siz[o] += siz[i];//更新o的子树大小
+                if (hson[o] == -1 || siz[i] > siz[hson[o]]) hson[o] = i;//更新o的重儿子
+            }
+        }
+    }
+    //dfs2()记录链顶（top）、重边优先遍历时的dfs序（dfn）和dfs序对应的节点编号（rnk）
+    void dfs2(int o, int head) {
+        top[o] = head;
+        cnt++;
+        dfn[o] = cnt;
+        rnk[cnt] = o;
+        if (hson[o] == -1) return;//叶子节点返回
+        dfs2(hson[o], head);  //优先dfs重儿子，可以保证同一条重链上的点DFS序连续（即cnt连续）
+        for (auto i : tree[o])if (i != hson[o] && i != fa[o]) dfs2(i, i);//然后dfs轻儿子
+    }

@@ -30,6 +30,10 @@
 
 ## LeetCode
 
+目前只打算做easy和medium中的部分题目
+
+[0001-0050](LeetCode/leetcode0001-0050.md)
+
 ## 模板
 
 - [Graph](%/Graph.md)

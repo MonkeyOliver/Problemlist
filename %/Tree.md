@@ -42,7 +42,7 @@
         }
         void update(int o, int s, int t, int l, int r, int k) {
             if (l > t || r < s)return;
-            else if (l <= s && t <= r) { sum[o] += k * (t - s + 1); laz[o] += k; return; }
+            else if (l <= s && t <= r) { sum[o] += k * (t - s + 1); laz[o] += k; return; }//注意这里的更新方式，区间加k为sum[o]+=，统一修改为k为sum[o]=
             push_down(o, s, t);
             int mid = (s + t) / 2;
             update(lson(o), s, mid, l, r, k);
@@ -220,4 +220,141 @@
         if (hson[o] == -1) return;//叶子节点返回
         dfs2(hson[o], head);  //优先dfs重儿子，可以保证同一条重链上的点DFS序连续（即cnt连续）
         for (auto i : tree[o])if (i != hson[o] && i != fa[o]) dfs2(i, i);//然后dfs轻儿子
+    }
+
+## 树链剖分求LCA
+
+    int lca(int u, int v) {
+        while (top[u] != top[v]) {
+            if (dep[top[u]] > dep[top[v]])u = fa[top[u]];//从所在重链链顶节点较深的节点起跳
+            else v = fa[top[v]];
+        }
+        return dep[u] > dep[v] ? v : u;//跳到同一重链上后取深度较浅的节点
+    }
+
+## 树剖+线段树 树上单点修改+树上路径和+路径最大值（树剖部分无变化，线段树部分变化用注释标出）
+
+    constexpr int MAXN = 30010 * 4;
+
+    vector<int>tree[MAXN];
+    int fa[MAXN], hson[MAXN], dep[MAXN], siz[MAXN];
+    int top[MAXN], rnk[MAXN], dfn[MAXN];
+    int w[MAXN];
+    int n, cnt = 0;
+
+    void dfs1(int);
+    void dfs2(int, int);
+
+    class segTree {
+    public:
+        void build(int o, int s, int t) {
+            laz[o] = 0;
+            if (s == t) { sum[o] = maxv[o] = w[rnk[s]]; return; }//here
+            int mid = (s + t) / 2;
+            build(lson(o), s, mid);
+            build(rson(o), mid + 1, t);
+            push_up(o);
+        }
+
+        void update(int l, int r, int k) {
+            update(1, 1, n, l, r, k);
+        }
+
+        //here
+        LL query_sum(int l, int r) {
+            int fl = top[l], fr = top[r];
+            LL ret = 0;
+            while (fl != fr) {
+                if (dep[fl] >= dep[fr])ret += querysum(1, 1, n, dfn[fl], dfn[l]), l = fa[fl];
+                else ret += querysum(1, 1, n, dfn[fr], dfn[r]), r = fa[fr];
+                fl = top[l], fr = top[r];
+            }
+            if (l != r) {
+                if (dfn[l] < dfn[r])ret += querysum(1, 1, n, dfn[l], dfn[r]);
+                else ret += querysum(1, 1, n, dfn[r], dfn[l]);
+            }
+            else ret += querysum(1, 1, n, dfn[l], dfn[r]);
+            return ret;
+        }
+
+        //here
+        LL query_max(int l, int r) {
+            int fl = top[l], fr = top[r];
+            LL ret = INT_MIN;
+            while (fl != fr) {
+                if (dep[fl] >= dep[fr])ret = max(ret, querymax(1, 1, n, dfn[fl], dfn[l])), l = fa[fl];
+                else ret = max(ret, querymax(1, 1, n, dfn[fr], dfn[r])), r = fa[fr];
+                fl = top[l], fr = top[r];
+            }
+            if (l != r) {
+                if (dfn[l] < dfn[r])ret = max(ret, querymax(1, 1, n, dfn[l], dfn[r]));
+                else ret = max(ret, querymax(1, 1, n, dfn[r], dfn[l]));
+            }
+            else ret = max(ret, querymax(1, 1, n, dfn[l], dfn[r]));
+            return ret;
+        }
+
+    private:
+        LL laz[MAXN], sum[MAXN], maxv[MAXN];
+        int lson(int x) { return x << 1; }
+        int rson(int x) { return x << 1 | 1; }
+        void push_up(int x) { sum[x] = sum[lson(x)] + sum[rson(x)]; maxv[x] = max(maxv[lson(x)], maxv[rson(x)]); }
+        void push_down(int x, int l, int r) {
+            int mid = (l + r) / 2;
+            if (laz[x] && l != r) {
+                laz[lson(x)] += laz[x];
+                laz[rson(x)] += laz[x];
+                sum[lson(x)] += laz[x] * (mid - l + 1);
+                sum[rson(x)] += laz[x] * (r - mid);
+                laz[x] = 0;
+            }
+        }
+        void update(int o, int s, int t, int l, int r, int k) {
+            if (l > t || r < s)return;
+            else if (l <= s && t <= r) { sum[o] = k * (t - s + 1); laz[o] += k; maxv[o] = k; return; }//here sum[x]= or sum[x]+=
+            push_down(o, s, t);
+            int mid = (s + t) / 2;
+            update(lson(o), s, mid, l, r, k);
+            update(rson(o), mid + 1, t, l, r, k);
+            push_up(o);
+        }
+        LL querysum(int o, int s, int t, int ql, int qr) {
+            if (ql > t || qr < s)return 0;
+            else if (ql <= s && t <= qr)return sum[o];
+            push_down(o, s, t);
+            int mid = (s + t) / 2;
+            return querysum(lson(o), s, mid, ql, qr) + querysum(rson(o), mid + 1, t, ql, qr);
+        }
+        LL querymax(int o, int s, int t, int ql, int qr) {
+            if (ql > t || qr < s)return INT_MIN;
+            else if (ql <= s && t <= qr)return maxv[o];
+            push_down(o, s, t);
+            int mid = (s + t) / 2;
+            return max(querymax(lson(o), s, mid, ql, qr), querymax(rson(o), mid + 1, t, ql, qr));
+        }
+    };
+
+    int main(int argc, char **argv) {
+        int a, b, q, u, v;
+        string query;
+        segTree ans;
+        cin >> n;
+        for (int i = 0; i < n - 1; i++) {
+            cin >> a >> b;
+            tree[a].push_back(b);
+            tree[b].push_back(a);
+        }
+        for (int i = 1; i <= n; i++)cin >> w[i];
+        dep[1] = 1;
+        dfs1(1);
+        dfs2(1, 1);
+        ans.build(1, 1, n);
+        cin >> q;
+        while (q--) {
+            cin >> query >> u >> v;
+            if (query == "CHANGE") ans.update(dfn[u], dfn[u], v);
+            else if (query == "QMAX") cout << ans.query_max(u, v) << endl;
+            else cout << ans.query_sum(u, v) << endl;
+        }
+        return 0;
     }

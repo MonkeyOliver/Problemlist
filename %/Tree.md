@@ -33,12 +33,13 @@
         int rson(int x) { return x << 1 | 1; }
         void push_up(int x) { sum[x] = sum[lson(x)] + sum[rson(x)]; }
         void push_down(int x, int l, int r) {
-            int mid = (l + r) / 2;
-            laz[lson(x)] += laz[x];
-            laz[rson(x)] += laz[x];
-            sum[lson(x)] += laz[x] * (mid - l + 1);
-            sum[rson(x)] += laz[x] * (r - mid);
-            laz[x] = 0;
+            if (laz[x] && l != r) {
+                laz[lson(x)] += laz[x];
+                laz[rson(x)] += laz[x];
+                sum[lson(x)] += laz[x] * (mid - l + 1);
+                sum[rson(x)] += laz[x] * (r - mid);
+                laz[x] = 0;
+            }
         }
         void update(int o, int s, int t, int l, int r, int k) {
             if (l > t || r < s)return;
@@ -269,6 +270,7 @@
                 else ret += querysum(1, 1, n, dfn[fr], dfn[r]), r = fa[fr];
                 fl = top[l], fr = top[r];
             }
+            //while结束后询问区间转移到同一条重链上
             if (l != r) {
                 if (dfn[l] < dfn[r])ret += querysum(1, 1, n, dfn[l], dfn[r]);
                 else ret += querysum(1, 1, n, dfn[r], dfn[l]);

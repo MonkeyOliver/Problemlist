@@ -31,7 +31,7 @@
 ### Tree
 
 - 树链剖分：
-- - with 线段树：[P2590](Problems/luogu/P2590.md)
+- - with 线段树：[P2590](Problems/luogu/P2590.md) [P3178](Problems/luogu/P3178.md) [P3384](Problems/luogu/P3384.md)
 
 ## LeetCode
 

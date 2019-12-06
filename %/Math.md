@@ -67,15 +67,15 @@
 
 ## 费马小定理
 
-**若p为质数**，$a^p\equiv a(\mod p)$
+**若p为质数**，$a^p\equiv a(\bmod\ p)$
 
 ## 欧拉定理
 
-**若a，n互质**，$a^{\phi(n)}\equiv 1(\mod n)$
+**若a，n互质**，$a^{\phi(n)}\equiv 1(\bmod\ n)$
 
-**若a，n互质**，对于任意正整数b，有$a^b\equiv a^{b\mod\phi(n)}(\mod n)$
+**若a，n互质**，对于任意正整数b，有$a^b\equiv a^{b\bmod\phi(n)}(\bmod\ n)$
 
-**若a，n不一定互质且$b>\phi(n)$**，有$a^b\equiv a^{b\mod\phi(n)+\phi(n)}(\mod n)$
+**若a，n不一定互质且$b>\phi(n)$**，有$a^b\equiv a^{b\bmod\phi(n)+\phi(n)}(\bmod\ n)$
 
 ## 欧拉函数$\phi(n)$（$O\sqrt{n}$）
 

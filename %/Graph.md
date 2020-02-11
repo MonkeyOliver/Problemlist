@@ -108,6 +108,27 @@
         return 0;
     }
 
+## SPFA
+
+    int spfa(int s, int t) {
+        memset(dis, 0x3f3f3f3f, sizeof(dis));
+        queue<int>q;
+        dis[s] = 0, vis[s] = 1;
+        q.push(s);
+        while (!q.empty()) {
+            int u = q.front(); q.pop();
+            vis[u] = 0;
+            for (auto i : G[u]) {
+                int v = i.first, c = i.second;
+                if (dis[v] > dis[u] + c) {
+                    dis[v] = dis[u] + c;
+                    if (!vis[v]) { q.push(v); vis[v] = 1; }
+                }
+            }
+        }
+        return dis[t];
+    }
+
 ## 最大流dinic
 
     vector<int> G[maxn];

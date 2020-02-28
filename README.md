@@ -14,7 +14,7 @@
 
 ### dp
 
-[P2347](Problems/luogu/P2347.md)
+[P2347](Problems/luogu/P2347.md) [leetcode0091](Problems/others/leetcode0091.md)
 
 - 01背包：[P2639](Problems/luogu/P2639.md) [P2430](Problems/luogu/P2430.md) [P2925](Problems/luogu/P2925.md) [P1507](Problems/luogu/P1507.md)
 - 完全背包：[P2722](Problems/luogu/P2722.md)
@@ -37,7 +37,7 @@
 
 目前只打算做easy和medium中的部分题目
 
-[0001-0050](LeetCode/leetcode0001-0050.md)
+[0001-0050](LeetCode/leetcode0001-0050.md) [0051-0100](LeetCode/leetcode0051-0100.md)
 
 ## 模板
 

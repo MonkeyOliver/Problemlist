@@ -38,70 +38,94 @@
     if (len != n && n % len == 0)puts("0");//是一个完整的有循环节的字符串
     else printf("%d\n", len - (n - n / len * len));//需要补充几个字母后才能成为有循环节的字符串
 
-## 后缀数组+Height数组[1-n]
+## 后缀数组（倍增法，nlogn）+Height数组[1-n]
+
+    //sfx(i)表示以i开头的后缀，即字符串s[i, n]，以下关于顺序的注释都指的是字典序，注意数组与字符串下标均从1开始
+    //sa[]存的是后缀的顺序，保证sfx(sa[i]) < sfx(sa[i+1])，举个栗子，sa[1]==5意味着所有后缀中字典序最小的是s[5, n]
+    //rk[]存的是后缀的排名，如果sfx(i) < sfx(j)，则rk[i] < rk[j]，举个栗子，rk[4]==1意味着s[4, n]是所有后缀中字典序最小的（排第1位）
+    //可见sa[]和rk[]是一组逆运算，即sa[rk[i]]==rk[sa[i]]==i，举个栗子，如果s的所有后缀中字典序最小的是s[8, n]，那么sa[rk[8]]==8, rk[sa[1]]==1
+    //辣么我们的目的是什么？尽可能高效地构造sa[]和rk[]，从而构造height[]，利用后缀、后缀序和height数组的性质来解题
+    //倍增法，简单来讲就是以有序的两个长度为k的子串的rk为键排序可以得到长度为2k子串的rk，当k倍增到字符串总长时得到的rk[]就是最终rk[]
 
     const int maxn = 1e6 + 10;
 
-    int sa[maxn], sa2[maxn], rnk[maxn], tong[maxn], a[maxn];//SA用
-    int rak[maxn], height[maxn];//GetHeight用
+    string s;
+    //SA()用
+    int sa[maxn], rk[maxn];
+    int rk2[maxn];//第二关键字
+    int tong[maxn];//基数排序辅助数组
+    //GetHeight()用，height[]见main函数内注释
+    int height[maxn];
 
     void SA(int len) {
         int i, M = 127, N = len, cnt = 1;//M为字符集大小，根据题意进行修改
-        for (i = 1; i <= N; i++) rnk[i] = a[i], sa2[i] = i;
-        //按首字母进行第一次基数排序
+        for (i = 1; i <= N; i++) rk[i] = s[i], rk2[i] = i;
+        //先按首字母进行第一次基数排序
         for (i = 0; i <= M; i++) tong[i] = 0;
-        for (i = 1; i <= N; i++) tong[a[i]]++;
+        for (i = 1; i <= N; i++) tong[s[i]]++;
         for (i = 1; i <= M; i++) tong[i] += tong[i - 1];
-        for (i = N; i >= 1; i--) sa[tong[a[i]]--] = i;
+        for (i = N; i >= 1; i--) sa[tong[s[i]]--] = i;
         //k为倍增长度
         for (int k = 1; cnt < N; M = cnt, k <<= 1) {
             cnt = 0;
-            for (i = 1; i <= k; i++) sa2[++cnt] = N - k + i;
-            for (i = 1; i <= N; i++)
-                if (sa[i] > k) sa2[++cnt] = sa[i] - k;
-            //用第二关键字对第一关键字进行基数排序
+            //第二关键字的顺序其实可以通过上一次的sa[]得到
+            //i+k超出n的子串所对应的第二关键字为无穷小（即s[i+k, i+2k]为空串），放在rk2[]最前面
+            for (i = 1; i <= k; i++) rk2[++cnt] = N - k + i;
+            for (i = 1; i <= N; i++)if (sa[i] > k) rk2[++cnt] = sa[i] - k;
+            //用一二关键字进行基数排序
             for (i = 0; i <= M; i++) tong[i] = 0;
-            for (i = 1; i <= N; i++) tong[rnk[i]]++;
+            for (i = 1; i <= N; i++) tong[rk[i]]++;
             for (i = 1; i <= M; i++) tong[i] += tong[i - 1];
-            for (i = N; i >= 1; i--) sa[tong[rnk[sa2[i]]]--] = sa2[i];
-            swap(rnk, sa2);
-            rnk[sa[1]] = cnt = 1;
-            for (i = 2; i <= N; i++)
-                rnk[sa[i]] = (sa2[sa[i - 1]] == sa2[sa[i]] && sa2[sa[i - 1] + k] == sa2[sa[i] + k]) ? cnt : ++cnt;
+            for (i = N; i >= 1; i--) sa[tong[rk[rk2[i]]]--] = rk2[i];
+            //更新rk的时候旧rk会丢，所以用rk2存一下
+            memcpy(rk2, rk, sizeof(rk));
+            //如果两个子串相同（即一二关键字都相同），那么两个子串的rk也要相同（三目运算符判的就是这事儿）
+            for (i = 1, cnt = 0; i <= N; ++i)
+                rk[sa[i]] = (rk2[sa[i]] == rk2[sa[i - 1]] && rk2[sa[i] + k] == rk2[sa[i - 1] + k]) ? cnt : ++cnt;
         }
     }
 
-    void GetHeight(int len) {
-        int i, j, k = 0, N = len;
-        for (i = 1; i <= N; i++) rak[sa[i]] = i;
-        for (i = 1; i <= N; height[rak[i++]] = k)
-            for (k ? k-- : 0, j = sa[rak[i] - 1]; a[i + k] == a[j + k]; k++);
-        return;
+    void GetHeight(int n) {
+        for (int i = 1, k = 0; i <= n; ++i) {
+            if (k) --k;
+            while (s[i + k] == s[sa[rk[i] - 1] + k]) ++k;
+            height[rk[i]] = k;
+        }
     }
 
     int main() {
-        int t;
-        cin >> t;
-        string s;
-        while (t--) {
-            cin >> s;
-            int len = s.size();
-            for (int i = 0; i < len; i++) a[i + 1] = s[i] - '0';
-            SA(len);
-            GetHeight(len);
-            //height[i]=sfx(sa[i-1])和sfx(sa[i])的最长公共前缀，也就是排名相邻两个后缀的最长公共前缀。
-            //询问某两个后缀的最长公共前缀可以转化为求height数组区间最小值（可以用RMQ）
-            //ans为本质不同的子串个数法一
-            LL ans = (len + 1)*len / 2;
-            for (int i = 1; i <= len; i++)ans -= height[i];
-            //本质不同的子串个数法二
-            LL ans = 0;
-            for (int i = 1; i <= len; i++)ans += (len - sa[i] + 1 - height[i]);
-            //可重叠最长重复子串
-            max(height);
-            cout << ans << endl;
-        }
+        cin >> s;
+        int len = s.size();
+        s = "#" + s;
+        SA(len);
+        GetHeight(len);
+        //height[i]=sfx(sa[i-1])和sfx(sa[i])的最长公共前缀的长度，也就是排名相邻两个后缀的最长公共前缀的长度。
+        //询问某两个后缀的最长公共前缀可以转化为求height数组区间最小值（可以用RMQ）
+        //ans为本质不同的子串个数法一
+        LL ans = (len + 1)*len / 2;
+        for (int i = 1; i <= len; i++)ans -= height[i];
+        //本质不同的子串个数法二
+        LL ans = 0;
+        for (int i = 1; i <= len; i++)ans += (len - sa[i] + 1 - height[i]);
+        //可重叠最长重复子串
+        max(height);
+        cout << ans << endl;
         return 0;
+    }
+
+## 后缀数组（倍增法，nlog^2(n)）
+
+    //一个比较好背且好理解的版本，复杂度略高，参数和变量见上
+    void SA(int n) {
+        int i, cnt;
+        for (i = 1; i <= n; ++i) rk[i] = s[i];
+        for (int k = 1; k < n; k <<= 1) {
+            for (i = 1; i <= n; ++i) sa[i] = i;
+            sort(sa + 1, sa + n + 1, [k](int x, int y) {return rk[x] == rk[y] ? rk[x + k] < rk[y + k] : rk[x] < rk[y]; });
+            memcpy(rk2, rk, sizeof(rk));
+            for (i = 1, cnt = 0; i <= n; ++i)
+                rk[sa[i]] = (rk2[sa[i]] == rk2[sa[i - 1]] && rk2[sa[i] + k] == rk2[sa[i - 1] + k]) ? cnt : ++cnt;
+        }
     }
 
 ## 后缀数组求不可重叠最长重复子串

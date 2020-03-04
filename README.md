@@ -14,7 +14,7 @@
 
 ### dp
 
-[P2347](Problems/luogu/P2347.md) [leetcode0091](Problems/others/leetcode0091.md)
+[P2347](Problems/luogu/P2347.md) [leetcode0091](LeetCode/leetcode0091.md)
 
 - 01背包：[P2639](Problems/luogu/P2639.md) [P2430](Problems/luogu/P2430.md) [P2925](Problems/luogu/P2925.md) [P1507](Problems/luogu/P1507.md)
 - 完全背包：[P2722](Problems/luogu/P2722.md)
@@ -33,11 +33,17 @@
 - 树链剖分：
 - - with 线段树：[P2590](Problems/luogu/P2590.md) [P3178](Problems/luogu/P3178.md) [P3384](Problems/luogu/P3384.md)
 
+### String
+
+- 后缀数组：[leetcode1044](LeetCode/leetcode1044.md)
+
 ## LeetCode
 
-目前只打算做easy和medium中的部分题目
+目前只打算做easy和medium中的大部分题目（有些恶心的模拟和锁题不写），偶尔看到拍个板子就能过的hard题也会顺手过一下
 
-[0001-0050](LeetCode/leetcode0001-0050.md) [0051-0100](LeetCode/leetcode0051-0100.md)
+[0001-0050](LeetCode/leetcode0001-0050.md)
+[0051-0100](LeetCode/leetcode0051-0100.md)
+[0101-0150](LeetCode/leetcode0101-0150.md)
 
 ## 模板
 

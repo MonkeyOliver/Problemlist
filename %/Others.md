@@ -15,3 +15,8 @@
     }
     return l;//下界
     return l - 1;//上界
+
+## 查找单向链表中间节点
+
+    ListNode *ptr = head, *tmp = head, tail = nullptr;
+    while( tmp != tail && tmp->next != tail )ptr = ptr->next, tmp = tmp->next->next;

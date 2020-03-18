@@ -1,6 +1,6 @@
 # Problemlist
 
-更好阅读体验[点击这里](https://monkeyoliver.github.io/Problemlist/)
+更好的阅读体验[点击这里](https://monkeyoliver.github.io/Problemlist/)
 
 ## Problems
 
@@ -14,10 +14,11 @@
 
 ### dp
 
-[P2347](Problems/luogu/P2347.md) [leetcode0091](LeetCode/leetcode0091.md)
+[P2347](Problems/luogu/P2347.md) [P2758](Problems/luogu/P2758.md) [leetcode0091](LeetCode/leetcode0091.md)
 
-- 01背包：[P2639](Problems/luogu/P2639.md) [P2430](Problems/luogu/P2430.md) [P2925](Problems/luogu/P2925.md) [P1507](Problems/luogu/P1507.md)
-- 完全背包：[P2722](Problems/luogu/P2722.md)
+- [01背包](https://oi-wiki.org/dp/knapsack/#0-1)：[P2639](Problems/luogu/P2639.md) [P2430](Problems/luogu/P2430.md) [P2925](Problems/luogu/P2925.md) [P1507](Problems/luogu/P1507.md) [P2871](Problems/luogu/P2871.md)
+- [完全背包](https://oi-wiki.org/dp/knapsack/#_1)：[P2722](Problems/luogu/P2722.md) [P1616](Problems/luogu/P1616.md)
+- [区间dp](https://oi-wiki.org/dp/interval/)：[P1880](Problems/luogu/P1880.md)
 
 ### Graph
 

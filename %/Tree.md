@@ -360,3 +360,8 @@
         }
         return 0;
     }
+
+## 单调栈核心代码
+
+    while (!s.empty() && val > s.top()) s.pop();//需根据实际单调顺序修改
+    s.push(val);

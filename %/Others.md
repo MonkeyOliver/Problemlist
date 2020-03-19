@@ -16,7 +16,24 @@
     return l;//下界
     return l - 1;//上界
 
+## 取数x的第i位
+
+    (x >> i) & 1
+
 ## 查找单向链表中间节点
 
     ListNode *ptr = head, *tmp = head, tail = nullptr;
     while( tmp != tail && tmp->next != tail )ptr = ptr->next, tmp = tmp->next->next;
+
+## 反转链表（照代码画个图自然而然就出来了）
+
+    ListNode n(0);
+    n.next = head;
+    ListNode *pre = &n, *cur = head;
+    while(cur->next) {
+        ListNode *tmp = pre->next;//这句老写错
+        pre->next = cur->next;
+        cur->next = cur->next->next;
+        pre->next->next = tmp;
+    }
+    return n.next;

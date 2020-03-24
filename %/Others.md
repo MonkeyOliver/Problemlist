@@ -37,3 +37,42 @@
         pre->next->next = tmp;
     }
     return n.next;
+
+## 快慢指针法判链表环
+
+    ListNode *slow = head, *fast = head, *ans = head;
+    while (fast->next && fast->next->next) {
+        slow = slow->next, fast = fast->next->next;
+        if (slow == fast) {
+            while(slow != ans) {
+                slow  = slow->next;
+                ans = ans->next;
+            }
+            return ans;
+        }
+    }
+    return nullptr;
+
+## O(n)求数组第k大
+
+    int partition(vector<int>& nums, int l, int r) {
+        if (l == r) return l;
+        int pivot = nums[l];
+        swap(nums[l], nums[r]);
+        int cur = l;
+        for (int k = l; k < r; k++)
+            if (nums[k] <= pivot) swap(nums[k], nums[cur++]);
+        swap(nums[cur], nums[r]);
+        return cur;
+    }
+
+    int findKthLargest(vector<int>& nums, int k) {
+        int len = nums.size(), pos = 0;
+        int tgt = len - k;//求第k小把这句改了就行
+        int l = 0, r = len - 1;
+        while ((pos = partition(nums, l, r)) != tgt) {
+            if (pos < tgt)l = pos + 1;
+            else if (pos > tgt)r = pos - 1;
+        }
+        return nums[pos];
+    }

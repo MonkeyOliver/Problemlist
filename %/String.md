@@ -1,5 +1,21 @@
 # String
 
+## 前缀函数
+
+    //pi[i]表示使得s[0...k-1]==s[k...i]的最大的k
+    //最长回文前缀可以将s与s的反串用特殊字符相连，然后对新串求前缀函数，返回s[0, pi[n-1]]
+
+    int pi[maxn];
+
+    void prefixFunction(const string& s) {
+        int n = s.size(), k = 0;
+        for (int i = 1; i < n; i++) {
+            while (k&& s[k] != s[i])k = pi[k - 1];
+            if (s[k] == s[i])k++;
+            pi[i] = k;
+        }
+    }
+
 ## KMP
 
     int nxt[maxn];

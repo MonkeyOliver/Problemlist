@@ -38,6 +38,8 @@
 
 ### String
 
+[cf1326D2](Problems/codeforces/1326D2.md)
+
 - 后缀数组：[leetcode1044](LeetCode/leetcode1044.md)
 
 ## LeetCode

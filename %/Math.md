@@ -30,10 +30,33 @@
         LL ans = 0, bas = a;
         while (b) {
             if (b & 1)ans = (ans + bas) % mod;
-            bas = (bas * 2) % mod;
+            bas = (bas + bas) % mod;
             b >>= 1;
         }
         return ans;
+    }
+
+## 模意义下x的乘法逆元（快速幂法）
+
+    LL inv(LL x, LL mod) {
+        return qPow(x, mod - 2, mod);
+    }
+
+## 模意义下的组合数
+
+    LL C(LL n, LL m, LL mod) {
+        if (n < m)return 0;
+        if (m > n - m)m = n - m;
+        LL tmp1 = 1, tmp2 = 1;
+        for (int i = 0; i < m; i++)tmp1 = (tmp1*(n - i)) % mod, tmp2 = (tmp2*(i + 1)) % mod;
+        return tmp1 * qPow(tmp2, mod - 2, mod) % mod;
+    }
+
+## Lucas定理
+
+    LL Lucas(LL n, LL m, LL mod) {
+        if (!m) return 1;
+        return (C(n % mod, m % mod, mod) * Lucas(n / mod, m / mod, mod)) % mod;
     }
 
 ## 欧几里得GCD

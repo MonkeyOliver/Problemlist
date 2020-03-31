@@ -10,7 +10,7 @@
 
 ### Greedy
 
-[cf1153C](Problems/codeforces/1153C.md)
+[cf1153C](Problems/codeforces/1153C.md) [cf1328C](Problems/codeforces/1328C.md)
 
 ### DP
 

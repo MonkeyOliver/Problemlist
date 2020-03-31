@@ -55,7 +55,6 @@
 
 ## 分层最短路
 
-    #define make_pair mpr
     const int maxn = 200000 + 10;
     using namespace std;
 
@@ -64,23 +63,23 @@
     int vis[maxn], dis[maxn];
 
     void addEdge(int u, int v, int c = 0) {
-        G[u].push_back(mpr(v, c));
+        G[u].push_back({ v, c });
     }
 
     void dijk(int s) {
         memset(dis, INT_MAX, sizeof(dis));
         dis[s] = 0;
         priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>>q;
-        q.push(mpr(0, s));
+        q.push({ 0, s });
         while (!q.empty()) {
             int u = q.top().second; q.pop();
             if (!vis[u]) {
                 vis[u] = 1;
-                for (vector<pair<int,int>>::iterator i = G[u].begin(); i != G[u].end(); i++) {
-                    int v = (*i).first, c = (*i).second;
+                for (auto i : G[u]) {
+                    int v = i.first, c = i.second;
                     if (dis[v] > dis[u] + c) {
                         dis[v] = dis[u] + c;
-                        q.push(mpr(dis[v], v));
+                        q.push({ dis[v], v });
                     }
                 }
 

@@ -54,6 +54,7 @@
 
 ## Lucas定理
 
+    //用于求解大组合数，模数mod必须为质数
     LL Lucas(LL n, LL m, LL mod) {
         if (!m) return 1;
         return (C(n % mod, m % mod, mod) * Lucas(n / mod, m / mod, mod)) % mod;

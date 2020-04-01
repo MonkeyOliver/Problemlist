@@ -6,7 +6,7 @@
 
 ### Math
 
-[cf1140D](Problems/codeforces/1140D.md) [cf1326A](Problems/codeforces/1326A.md) [cf1326C](Problems/codeforces/1326C.md)
+[cf1140D](Problems/codeforces/1140D.md) [cf1326A](Problems/codeforces/1326A.md) [cf1326C](Problems/codeforces/1326C.md) [cf1328B](Problems/codeforces/1328B.md)
 
 ### Greedy
 

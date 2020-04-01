@@ -16,6 +16,12 @@
     return l;//下界
     return l - 1;//上界
 
+关于C++的lower_bound()和upper_bound()：
+
+设一个数k，想象一个升序数组a0，a1，a2……k，k，k，ak……an-1，low所指向的是第一个k的位置，up指向的是ak的位置。
+
+如果该数组中没出现k，即a0，a1，a2……ak-1，ak……an-1（ak-1 < k < ak），那么low和up都指向ak的位置。
+
 ## 取数x的第i位
 
     (x >> i) & 1

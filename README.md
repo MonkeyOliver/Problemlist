@@ -1,5 +1,7 @@
 # Problemlist
 
+2020.4.2更新：偶然发现luogu有题单功能了
+
 更好的阅读体验[点击这里](https://monkeyoliver.github.io/Problemlist/)
 
 ## Problems
@@ -10,11 +12,11 @@
 
 ### Greedy
 
-[cf1153C](Problems/codeforces/1153C.md) [cf1328C](Problems/codeforces/1328C.md)
+[cf1153C](Problems/codeforces/1153C.md) [cf1328C](Problems/codeforces/1328C.md) [cf1324C](Problems/codeforces/1324C.md)
 
 ### DP
 
-[P2347](Problems/luogu/P2347.md) [P2758](Problems/luogu/P2758.md) [leetcode0091](LeetCode/leetcode0091.md)
+[P2347](Problems/luogu/P2347.md) [P2758](Problems/luogu/P2758.md) [leetcode0091](LeetCode/leetcode0091.md) [cf1324B](Problems/codeforces/1324B.md)
 
 - [01背包](https://oi-wiki.org/dp/knapsack/#0-1)：[P2639](Problems/luogu/P2639.md) [P2430](Problems/luogu/P2430.md) [P2925](Problems/luogu/P2925.md) [P1507](Problems/luogu/P1507.md) [P2871](Problems/luogu/P2871.md)
 - [完全背包](https://oi-wiki.org/dp/knapsack/#_1)：[P2722](Problems/luogu/P2722.md) [P1616](Problems/luogu/P1616.md)
@@ -23,9 +25,9 @@
 ### Graph
 
 - 最短路：[csu1808](Problems/others/csu1808.md)
-- - 分层最短路：[P4568](Problems/luogu/P4568.md)
+  - 分层最短路：[P4568](Problems/luogu/P4568.md)
 - 并查集：[P1197](Problems/luogu/P1197.md) [cf1263D](Problems/codeforces/1263D.md)
-- - 带权并查集：[P1196](Problems/luogu/P1196.md)
+  - 带权并查集：[P1196](Problems/luogu/P1196.md)
 - 二分图：[cf1144F](Problems/codeforces/1144F.md)
 - 最小生成树：[P2330](Problems/luogu/P2330.md) [cf102012A](Problems/codeforces/102012A.md)
 
@@ -34,7 +36,7 @@
 - 单调栈：[P5788](Problems/luogu/P5788.md)
 - 单调队列：[P1886](Problems/luogu/P1886.md)
 - 树链剖分：
-- - with 线段树：[P2590](Problems/luogu/P2590.md) [P3178](Problems/luogu/P3178.md) [P3384](Problems/luogu/P3384.md)
+  - with 线段树：[P2590](Problems/luogu/P2590.md) [P3178](Problems/luogu/P3178.md) [P3384](Problems/luogu/P3384.md)
 
 ### String
 

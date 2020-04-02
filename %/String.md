@@ -123,7 +123,7 @@
         //本质不同的子串个数法二
         LL ans = 0;
         for (int i = 1; i <= len; i++)ans += (len - sa[i] + 1 - height[i]);
-        //可重叠最长重复子串
+        //可重叠最长重复子串，将原串s改写为s + "#" + reverse(s)可求得最长回文子串（But why not use manacher directly?）
         max(height);
         cout << ans << endl;
         return 0;
@@ -574,4 +574,29 @@
         for (auto s : strs)a.insert(s);
         cout << a.find_longest_common_prefix(a.root) << endl;
         return 0;
+    }
+
+## Manacher和最长回文子串
+
+    char ma[maxn];
+    int mp[maxn];
+    void manacher(string &s) {
+        int l = 0;
+        ma[l++] = '$', ma[l++] = '#';
+        for (int i = 0; i < s.size(); i++)ma[l++] = s[i], ma[l++] = '#';
+        ma[l] = 0;
+        int mx = 0, id = 0;
+        for (int i = 0; i < l; i++) {
+            mp[i] = mx > i ? min(mp[2 * id - i], mx - i) : 1;
+            while (ma[i + mp[i]] == ma[i - mp[i] >= 0 ? i - mp[i] : 0])mp[i]++;
+            if (i + mp[i] > mx)mx = i + mp[i], id = i;
+        }
+    }
+    string longestPalindrome(string s) {
+        manacher(s);
+        int max_len = 0, max_pos;
+        for (int i = 0; i < maxn; i++)
+            if (mp[i] > max_len)max_len = mp[i], max_pos = i;
+        max_len--;
+        return s.substr((max_pos - max_len) / 2, max_len);
     }

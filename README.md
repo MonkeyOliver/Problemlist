@@ -40,7 +40,7 @@
 
 ### String
 
-[cf1326D2](Problems/codeforces/1326D2.md)
+[cf1326D2](Problems/codeforces/1326D2.md) [cf1332C](Problems/codeforces/1332C.md)
 
 - 后缀数组：[leetcode1044](LeetCode/leetcode1044.md)
 
@@ -54,8 +54,8 @@
 
 ## 模板
 
-- [Graph](%/Graph.md)
-- [Tree](%/Tree.md)
-- [Math](%/Math.md)
-- [String](%/String.md)
-- [Others](%/Others.md)
+- [Graph](%%/Graph.md)
+- [Tree](%%/Tree.md)
+- [Math](%%/Math.md)
+- [String](%%/String.md)
+- [Others](%%/Others.md)

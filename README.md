@@ -8,7 +8,7 @@
 
 ### Math
 
-[cf1140D](Problems/codeforces/1140D.md) [cf1326A](Problems/codeforces/1326A.md) [cf1326C](Problems/codeforces/1326C.md) [cf1328B](Problems/codeforces/1328B.md)
+[cf1140D](Problems/codeforces/1140D.md) [cf1326A](Problems/codeforces/1326A.md) [cf1326C](Problems/codeforces/1326C.md) [cf1328B](Problems/codeforces/1328B.md) [cf1332B](Problems/codeforces/1332B.md)
 
 ### Greedy
 
@@ -35,7 +35,7 @@
 
 - 单调栈：[P5788](Problems/luogu/P5788.md)
 - 单调队列：[P1886](Problems/luogu/P1886.md)
-- 树链剖分：
+- 树链剖分：[cf101002I](Problems/codeforces/101002I.md)
   - with 线段树：[P2590](Problems/luogu/P2590.md) [P3178](Problems/luogu/P3178.md) [P3384](Problems/luogu/P3384.md)
 
 ### String
@@ -54,8 +54,8 @@
 
 ## 模板
 
-- [Graph](%%/Graph.md)
-- [Tree](%%/Tree.md)
-- [Math](%%/Math.md)
-- [String](%%/String.md)
-- [Others](%%/Others.md)
+- [Graph](moban/Graph.md)
+- [Tree](moban/Tree.md)
+- [Math](moban/Math.md)
+- [String](moban/String.md)
+- [Others](moban/Others.md)

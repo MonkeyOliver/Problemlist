@@ -145,7 +145,7 @@
 
 ## LCA（倍增法）
 
-    int n, m, s;
+    int n, m, rt;
     vector<int>G[maxn];
     int fa[maxn][31], dep[maxn], lg2[maxn];
 
@@ -156,9 +156,8 @@
             fa[rt][i] = fa[fa[rt][i - 1]][i - 1];//核心之一:f的2^i祖先等于f的2^(i-1)祖先的2^(i-1)祖先，2^i=2^(i-1)+2^(i-1)
         }
         int sz = G[rt].size();
-        for (int i = 0; i < sz; i++) {
+        for (int i = 0; i < sz; i++)
             if (G[rt][i] != f)dfs(G[rt][i], rt);
-        }
     }
 
     void init() {
@@ -176,14 +175,14 @@
 
     int main() {
         int x, y;
-        cin >> n >> m >> s;
+        cin >> n >> m >> rt;
         init();
         for (int i = 0; i < n - 1; i++) {
             cin >> x >> y;
             G[x].push_back(y);
             G[y].push_back(x);
         }
-        dfs(s, 0);
+        dfs(rt, 0);
         while (m--) {
             cin >> x >> y;
             cout << lca(x, y) << endl;

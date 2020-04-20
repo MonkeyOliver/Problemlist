@@ -44,6 +44,10 @@
 
 - 后缀数组：[leetcode1044](LeetCode/leetcode1044.md)
 
+### Geo
+
+- 凸包：[P2742](Problems/luogu/P2742.md)
+
 ## LeetCode
 
 目前只打算做easy和medium中的大部分题目（有些恶心的模拟和锁题不写），偶尔看到拍个板子就能过的hard题也会顺手过一下
@@ -59,3 +63,4 @@
 - [Math](moban/Math.md)
 - [String](moban/String.md)
 - [Others](moban/Others.md)
+- [jls的几何模板（个人魔改版本）](moban/geo.cpp)

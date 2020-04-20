@@ -47,6 +47,7 @@
 ### Geo
 
 - 凸包：[P2742](Problems/luogu/P2742.md)
+  - 旋转卡壳：[P1452](Problems/luogu/P1452.md)
 
 ## LeetCode
 

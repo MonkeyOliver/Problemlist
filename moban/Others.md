@@ -82,3 +82,78 @@
         }
         return nums[pos];
     }
+
+## 二叉树相关
+
+    template <typename T = int>
+    class Node {
+    public:
+        T val;
+        Node<T> *left, *right;
+        void print() { std::cout << val << std::endl; }
+    };
+
+    void preOrderRecursive(Node<> *rt) {
+        rt->print();
+        if (rt->left) preOrderRecursive(rt->left);
+        if (rt->right) preOrderRecursive(rt->right);
+    }
+
+    void preOrder(Node<> *rt) {
+        std::stack<Node<> *> stk;
+        stk.push(rt);
+        while (!stk.empty()) {
+            auto cur = stk.top();
+            stk.pop();
+            cur->print();
+            //注意顺序
+            if (cur->right) stk.push(cur->right);
+            if (cur->left) stk.push(cur->left);
+        }
+    }
+
+    void inOrderRecursive(Node<> *rt) {
+        if (rt->left) inOrderRecursive(rt->left);
+        rt->print();
+        if (rt->right) inOrderRecursive(rt->right);
+    }
+
+    void inOrder(Node<> *rt) {
+        std::stack<Node<> *> stk;
+        while (rt || !stk.empty()) {
+            while (rt) {
+                stk.push(rt);
+                rt = rt->left;
+            }
+            rt = stk.top();
+            stk.pop();
+            rt->print();
+            rt = rt->right;
+        }
+    }
+
+    void postOrderRecursive(Node<> *rt) {
+        if (rt->left) postOrderRecursive(rt->left);
+        if (rt->right) postOrderRecursive(rt->right);
+        rt->print();
+    }
+
+    void postOrder(Node<> *rt) {
+        std::stack<Node<> *> stk;
+        Node<> *pre = nullptr;
+        while (rt || !stk.empty()) {
+            if (rt) {
+                stk.push(rt);
+                rt = rt->left;
+            }
+            else {
+                auto cur = stk.top();
+                if (cur->right && pre != cur->right)rt = cur->right;
+                else {
+                    cur->print();
+                    pre = cur;
+                    stk.pop();
+                }
+            }
+        }
+    }

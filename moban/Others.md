@@ -18,9 +18,9 @@
 
 关于C++的lower_bound()和upper_bound()：
 
-设一个数k，想象一个升序数组a0，a1，a2……k，k，k，ak……an-1，low所指向的是第一个k的位置，up指向的是ak的位置。
+设一个数k，想象一个升序数组a0，a1，a2……**k**，k，k，**ak**……an-1，low所指向的是第一个k的位置，up指向的是ak的位置。
 
-如果该数组中没出现k，即a0，a1，a2……ak-1，ak……an-1（ak-1 < k < ak），那么low和up都指向ak的位置。
+如果该数组中没出现k，即a0，a1，a2……ak-1，**ak**……an-1（ak-1 < k < ak），那么low和up都指向ak的位置。
 
 ## 取数x的第i位
 
@@ -125,10 +125,10 @@
                 stk.push(rt);
                 rt = rt->left;
             }
-            rt = stk.top();
+            auto cur = stk.top();
             stk.pop();
-            rt->print();
-            rt = rt->right;
+            cur->print();
+            rt = cur->right;
         }
     }
 
@@ -142,18 +142,67 @@
         std::stack<Node<> *> stk;
         Node<> *pre = nullptr;
         while (rt || !stk.empty()) {
-            if (rt) {
+            while (rt) {
                 stk.push(rt);
                 rt = rt->left;
             }
+            auto cur = stk.top();
+            if (cur->right && pre != cur->right)rt = cur->right;
             else {
-                auto cur = stk.top();
-                if (cur->right && pre != cur->right)rt = cur->right;
-                else {
-                    cur->print();
-                    pre = cur;
-                    stk.pop();
-                }
+                cur->print();
+                pre = cur;
+                stk.pop();
             }
         }
+    }
+
+    Node<>* buildTree(vector<int>& pre, int rt, int n, vector<int>& inorder, int l, int r) {
+        if (rt >= n || l >= n)return nullptr;
+        int pos = -1;
+        for (int i = l; i < r; i++)if (inorder[i] == pre[rt]) { pos = i; break; }
+        int lcnt = pos - l;
+        Node<>* node = new Node<>(pre[rt]);
+        node->left = buildTree(pre, rt + 1, rt + 1 + lcnt, inorder, l, pos);
+        node->right = buildTree(pre, rt + 1 + lcnt, n, inorder, pos + 1, r);
+        return node;
+    }
+
+    Node<>* buildTree(vector<int>& post, int o, int rt, vector<int>& inorder, int l, int r) {
+        if (o > rt)return nullptr;
+        int pos = -1;
+        for (int i = l; i < r; i++)if (inorder[i] == post[rt]) { pos = i; break; }
+        int rcnt = r - 1 - pos - 1;
+        Node<>* node = new Node<>(post[rt]);
+        node->left = buildTree(post, o, rt - 1 - rcnt - 1, inorder, l, pos);
+        node->right = buildTree(post, rt - 1 - rcnt, rt - 1, inorder, pos, r);
+        return node;
+    }
+
+    int preIndex = 0, posIndex = 0;
+    TreeNode* buildTree(vector<int>& pre, vector<int>& post) {
+        TreeNode* root = new TreeNode(pre[preIndex++]);
+        if (root->val != post[posIndex])root->left = buildTree(pre, post);
+        if (root->val != post[posIndex])root->right = buildTree(pre, post);
+        posIndex++;
+        return root;
+    }
+
+    BSTNode* buildTree(SortedListNode *head, SortedListNode *tail){
+        if(head == tail)return nullptr;
+        if(head->next == tail)return new BSTNode(head->val);
+        SortedListNode *ptr = head, *tmp = head;
+        while(tmp != tail && tmp->next != tail)ptr = ptr->next, tmp = tmp->next->next;
+        BSTNode *cur = new BSTNode(ptr->val);
+        cur->left = buildTree(head, ptr);
+        cur->right = buildTree(ptr->next, tail);
+        return cur;
+    }
+
+    BSTNode* buildTree(vector<int>& SortedArray, int l, int r){
+        if(l > r)return nullptr;
+        int m = (l + r) / 2;
+        BSTNode* cur = new BSTNode(SortedArray[m]);
+        cur->left = buildTree(SortedArray, l, m - 1);
+        cur->right = buildTree(SortedArray, m + 1, r);
+        return cur;
     }

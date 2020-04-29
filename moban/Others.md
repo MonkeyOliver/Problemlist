@@ -59,6 +59,52 @@
     }
     return nullptr;
 
+## 链表插入排序
+
+    ListNode* insertionSortList(ListNode* head) {
+        ListNode *dummy = new ListNode(0);
+        dummy->next = head;
+        ListNode *pre = dummy, *cur = head;
+        while(cur) {
+            if(cur->next && cur->next->val < cur->val) {
+                while(pre->next && pre->next->val < cur->next->val)pre = pre->next;//找插入点
+                ListNode *tmp = pre->next;//从插入点断开
+                pre->next = cur->next;//将cur->next插到pre后面
+                cur->next = cur->next->next;//删掉原先的cur->next
+                pre->next->next = tmp;//接上
+                pre = dummy;//回到链表头部
+            }
+            else cur = cur->next;
+        }
+        return dummy->next;
+    }
+
+## 数组插入排序
+
+    void insertionSortArray(vector<int>& nums) {
+        for(int i = 1; i < nums.size(); i++) {
+            int k = nums[i], j = i - 1;
+            while(j >= 0 && nums[j] > k)nums[j + 1] = nums[j], j--;
+            nums[j + 1] = k;
+        }
+    }
+
+## 数组快速排序
+
+    void quickSort(vector<int>& nums, int l, int r){
+        if(l >= r) return;
+        int i = l;
+        for(int j = l; j <= r - 1; j++) {
+            if(nums[j] <= nums[r]){
+                swap(nums[i], nums[j]);
+                i++;
+            }
+        }
+        swap(nums[i], nums[r]);
+        quickSort(nums, l, i - 1);
+        quickSort(nums, i + 1, r);
+    }
+
 ## O(n)求数组第k大
 
     int partition(vector<int>& nums, int l, int r) {
@@ -93,6 +139,8 @@
         void print() { std::cout << val << std::endl; }
     };
 
+### 前序遍历
+
     void preOrderRecursive(Node<> *rt) {
         rt->print();
         if (rt->left) preOrderRecursive(rt->left);
@@ -111,6 +159,8 @@
             if (cur->left) stk.push(cur->left);
         }
     }
+
+### 中序遍历
 
     void inOrderRecursive(Node<> *rt) {
         if (rt->left) inOrderRecursive(rt->left);
@@ -131,6 +181,8 @@
             rt = cur->right;
         }
     }
+
+### 后序遍历
 
     void postOrderRecursive(Node<> *rt) {
         if (rt->left) postOrderRecursive(rt->left);
@@ -156,6 +208,8 @@
         }
     }
 
+### 已知前序中序重建
+
     Node<>* buildTree(vector<int>& pre, int rt, int n, vector<int>& inorder, int l, int r) {
         if (rt >= n || l >= n)return nullptr;
         int pos = -1;
@@ -166,6 +220,8 @@
         node->right = buildTree(pre, rt + 1 + lcnt, n, inorder, pos + 1, r);
         return node;
     }
+
+### 已知后序中序重建
 
     Node<>* buildTree(vector<int>& post, int o, int rt, vector<int>& inorder, int l, int r) {
         if (o > rt)return nullptr;
@@ -178,14 +234,18 @@
         return node;
     }
 
+### 已知前序后序重建
+
     int preIndex = 0, posIndex = 0;
-    TreeNode* buildTree(vector<int>& pre, vector<int>& post) {
-        TreeNode* root = new TreeNode(pre[preIndex++]);
+    Node<>* buildTree(vector<int>& pre, vector<int>& post) {
+        Node<>* root = new Node<>(pre[preIndex++]);
         if (root->val != post[posIndex])root->left = buildTree(pre, post);
         if (root->val != post[posIndex])root->right = buildTree(pre, post);
         posIndex++;
         return root;
     }
+
+### 已知有序链表重建二叉搜索树（BST）
 
     BSTNode* buildTree(SortedListNode *head, SortedListNode *tail){
         if(head == tail)return nullptr;
@@ -197,6 +257,8 @@
         cur->right = buildTree(ptr->next, tail);
         return cur;
     }
+
+### 已知有序数组重建二叉搜索树（BST）
 
     BSTNode* buildTree(vector<int>& SortedArray, int l, int r){
         if(l > r)return nullptr;

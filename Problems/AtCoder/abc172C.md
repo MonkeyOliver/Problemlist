@@ -1,5 +1,7 @@
 # C - Tsundoku
 
+[Link](https://atcoder.jp/contests/abc172/tasks/abc172_c)
+
 ## Solution
 
 好久没写题竟然被这种水题卡了很久，一开始想了个假贪心，后来看了题解的前半部分又写了个假二分，我太挫了。

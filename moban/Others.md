@@ -22,6 +22,8 @@
 
 如果该数组中没出现k，即a0，a1，a2……ak-1，**ak**……an-1（ak-1 < k < ak），那么low和up都指向ak的位置。
 
+Python中起同样作用的函数是bisect.bisect_left()和bisect.bisect()（或者bisect.bisect_right()）
+
 ## 取数x的第i位
 
     (x >> i) & 1

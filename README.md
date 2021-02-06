@@ -12,11 +12,11 @@
 
 ### Greedy
 
-[cf1153C](Problems/codeforces/1153C.md) [cf1328C](Problems/codeforces/1328C.md) [cf1324C](Problems/codeforces/1324C.md) [cf1323B](Problems/codeforces/1323B.md) [at_abc172_C](Problems/AtCoder/abc172C.md)
+[cf1153C](Problems/codeforces/1153C.md) [cf1328C](Problems/codeforces/1328C.md) [cf1324C](Problems/codeforces/1324C.md) [cf1323B](Problems/codeforces/1323B.md) [at_abc172_C](Problems/AtCoder/abc172C.md) [cf1474A](Problems/codeforces/1474A.md)
 
 ### DP
 
-[P2347](Problems/luogu/P2347.md) [P2758](Problems/luogu/P2758.md) [leetcode0091](LeetCode/leetcode0091.md) [cf1324B](Problems/codeforces/1324B.md)
+[P2347](Problems/luogu/P2347.md) [P2758](Problems/luogu/P2758.md) [leetcode0091](LeetCode/leetcode0091.md) [cf1324B](Problems/codeforces/1324B.md) [cf1478B](Problems/codeforces/1478B.md)
 
 - [01背包](https://oi-wiki.org/dp/knapsack/#0-1)：[P2639](Problems/luogu/P2639.md) [P2430](Problems/luogu/P2430.md) [P2925](Problems/luogu/P2925.md) [P1507](Problems/luogu/P1507.md) [P2871](Problems/luogu/P2871.md)
 - [完全背包](https://oi-wiki.org/dp/knapsack/#_1)：[P2722](Problems/luogu/P2722.md) [P1616](Problems/luogu/P1616.md)

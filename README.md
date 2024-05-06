@@ -26,7 +26,7 @@
 
 - 最短路：[csu1808](Problems/others/csu1808.md)
   - 分层最短路：[P4568](Problems/luogu/P4568.md)
-- 并查集：[P1197](Problems/luogu/P1197.md) [cf1263D](Problems/codeforces/1263D.md)
+- 并查集：[P1197](Problems/luogu/P1197.md) [cf1263D](Problems/codeforces/1263D.md) [P1621](Problems/luogu/P1621.md)
   - 带权并查集：[P1196](Problems/luogu/P1196.md)
 - 二分图：[cf1144F](Problems/codeforces/1144F.md)
 - 最小生成树：[P2330](Problems/luogu/P2330.md) [cf102012A](Problems/codeforces/102012A.md)

@@ -17,22 +17,33 @@
 
 ## 并查集
 
-    int fa[maxn];
+    class DS {
+    private:
+        int rt[maxn];
 
-    void init(int n) {
-        for (int i = 1; i <= n; i++)fa[i] = i;
-    }
+    public:
+        int count;  // 连通分量的个数
+        DS(int n) {
+            count = n;
+            for (size_t i = 1; i <= n; i++) rt[i] = i;
+        }
 
-    int findr(int x) {
-        if (fa[x] == x)return x;
-        else return fa[x] = findr(fa[x]);
-    }
+        int find_rt(int x) {
+            if (rt[x] == x) return x;
+            else return rt[x] = find_rt(rt[x]);
+        }
 
-    void merge(int x, int y) {
-        int xr = findr(x);
-        int yr = findr(y);
-        if (xr != yr)fa[xr] = yr;
-    }
+        void merge(int x, int y) {
+            int xrt = find_rt(x);
+            int yrt = find_rt(y);
+            if (xrt != yrt) {
+                rt[xrt] = yrt;
+                count--;
+            }
+        }
+
+        bool is_connected(int x, int y) { return find_rt(x) == find_rt(y); }
+    };
 
 ## 匈牙利（二分图最大匹配）
 

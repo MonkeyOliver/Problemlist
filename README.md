@@ -24,7 +24,7 @@
 
 ### Graph
 
-- 最短路：[csu1808](Problems/others/csu1808.md)
+- 最短路：[csu1808](Problems/others/csu1808.md) [P4779](Problems/luogu/P4779.md)
   - 分层最短路：[P4568](Problems/luogu/P4568.md)
 - 并查集：[P1197](Problems/luogu/P1197.md) [cf1263D](Problems/codeforces/1263D.md) [P1621](Problems/luogu/P1621.md)
   - 带权并查集：[P1196](Problems/luogu/P1196.md)
